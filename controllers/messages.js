@@ -1,10 +1,9 @@
 const { response } = require('express');
-const message = require('../models/message');
 const Message = require('../models/message');
+const messaging = require('./messaging');
 
 const categories = ['World','Politics','Business','Opinion','Science','Sports','Food','Travel'];
 const channels = ['SMS','Email','Push'];
-
 const users = [
     {
         id: 1,
@@ -55,25 +54,78 @@ const messagesGet = (req, res = response) => {
 }
 
 const messagesPost = async(req, res = response) => {
-    const {category, messageFromUI} = req.body;
-    
+    const {category, message} = req.body;
+    let postResponse;
     try {
-        // Obtain receivers
-        let receivers = "";
-        receivers = await getReceivers(category);
-
-
+        postResponse = await controlMessageFlow(message, category);
+        res.json({
+            postResponse
+        });
     } catch (error) {
-        receivers = error
+        res.json({
+            error
+        });
     }
-
-    res.json({
-        receivers
-    });
 }
 
-const sendToDB = async(message, receivers) => {
-    const message = new Message();
+const controlMessageFlow = async(message, category) => {
+    let deliveryData;
+    let messageStatus;
+    let errorMessage;
+    await buildData(category)
+        .then(async dataResponse => {
+            deliveryData = dataResponse;
+            return await messaging.evaluateMessage(message, deliveryData);
+        })
+        .then(async messagingResponse => {
+            messageStatus = messagingResponse;
+        })
+        .catch(error => {
+            errorMessage = error;
+        });
+    
+    if (!errorMessage) {
+        deliveryData.deliveryStatus = messageStatus;
+        return deliveryData;
+    } else {
+        return errorMessage;
+    }
+}
+
+const buildData = async(category) => {
+    let deliveryData;
+    let receivers;
+    let channels;
+    let errorMessage;
+    await getReceivers(category)
+        .then(receiversResponse => {
+            receivers = receiversResponse;
+            return getChannels(receivers);
+        })
+        .then(channelsResponse => {
+            channels = channelsResponse;
+        })
+        .catch(error => {
+            errorMessage = error;
+            console.log(error);
+        });
+        
+    if (!errorMessage) {
+        let channelsArray = [];
+        channels.forEach(elementArray => {
+            elementArray.forEach(element => {
+                if (!channelsArray.includes(element)) {
+                    channelsArray.push(element);
+                }
+            });
+        });
+        
+        deliveryData = {"users": receivers, "channels": channelsArray};
+        return deliveryData;
+    }
+    else {
+        return errorMessage;
+    }
 }
 
 const getReceivers = (category) => {
@@ -86,6 +138,18 @@ const getReceivers = (category) => {
         (receivers.length > 0)
             ? resolve(receivers)
             : reject(`There are no users subscribed to the ${category} category`)
+    });
+}
+
+const getChannels = (receivers) => {
+    let channels = [];
+    return new Promise((resolve, reject) => {
+        receivers.forEach(element => {
+            channels.push(element.channels);
+        });
+        (channels.length > 0)
+            ? resolve(channels)
+            : reject(`There are no channels to deliver the message`)
     });
 }
 
