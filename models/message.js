@@ -1,10 +1,10 @@
 const {Schema, model} = require('mongoose');
-const {v4: uuidv4 } = require('uuid');
+//const {v4: uuidv4 } = require('uuid');
 
 const MessageSchema = Schema({
-    _id: {
+    message: {
         type: String,
-        default: uuidv4()
+        required: true
     },
     name: {
         type: String,
@@ -23,6 +23,10 @@ const MessageSchema = Schema({
         required: true
     },
     channels: {
+        type: Array,
+        required: true
+    },
+    deliveryStatus: {
         type: Array,
         required: true
     }

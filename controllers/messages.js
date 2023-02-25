@@ -1,8 +1,8 @@
 const { response } = require('express');
-const Message = require('../models/message');
 const messaging = require('./messaging');
+const dbFunctions = require('../database/functions');
 
-const categories = ['World','Politics','Business','Opinion','Science','Sports','Food','Travel'];
+const categories = ['Sport','Finance','Movies'];
 const channels = ['SMS','Email','Push'];
 const users = [
     {
@@ -10,7 +10,7 @@ const users = [
         name: 'Damon Baird',
         email: 'dbaird@mail.com',
         phone: '123456789',
-        subscribed: ['Sports','Science'],
+        subscribed: ['Sports','Movies'],
         channels: ['SMS']
     },
     {
@@ -18,7 +18,7 @@ const users = [
         name: 'Marcus Phoenix',
         email: 'marcus@mail.com',
         phone: '123456789',
-        subscribed: ['Travel','Politics','Business'],
+        subscribed: ['Movies','Finance'],
         channels: ['Email','Push']
     },
     {
@@ -26,7 +26,7 @@ const users = [
         name: 'Samantha Byrne',
         email: 'sam.byrne@mail.com',
         phone: '123456789',
-        subscribed: ['Travel','Food','Politics'],
+        subscribed: ['Movies','Sport'],
         channels: ['Push']
     },
     {
@@ -34,7 +34,7 @@ const users = [
         name: 'Anya Stroud',
         email: 'anyastroud1988@mail.com',
         phone: '123456789',
-        subscribed: ['Science','Business','Sports'],
+        subscribed: ['Finace','Sports'],
         channels: ['SMS','Email']
     },
     {
@@ -42,14 +42,17 @@ const users = [
         name: 'Clayton Carmine',
         email: 'c.carmine@mail.com',
         phone: '123456789',
-        subscribed: ['Opinion','Food','Travel'],
+        subscribed: ['Sport','Finance','Movies'],
         channels: ['SMS','Email']
     }
 ];
 
-const messagesGet = (req, res = response) => {
+const messagesGet = async(req, res = response) => {
+
+    const logs = await dbFunctions.getLogs();
+
     res.json({
-        message: 'GET API Controller'
+        logs
     });
 }
 
@@ -75,10 +78,11 @@ const controlMessageFlow = async(message, category) => {
     await buildData(category)
         .then(async dataResponse => {
             deliveryData = dataResponse;
-            return await messaging.evaluateMessage(message, deliveryData);
+            return await messaging.buildLogData(message, deliveryData);
         })
-        .then(async messagingResponse => {
-            messageStatus = messagingResponse;
+        .then(async logDataResponse => {
+            messageStatus = logDataResponse;
+            return await dbFunctions.saveToDB(logDataResponse);
         })
         .catch(error => {
             errorMessage = error;

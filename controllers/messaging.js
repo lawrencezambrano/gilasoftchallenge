@@ -1,50 +1,109 @@
-
-const evaluateMessage = async(message, deliveryData) => {
-    const channels = deliveryData.channels;
+const buildLogData = (message, deliveryData) => {
+    let logDataToSave = {};
+    let usersArray = [];
     let deliveryResponse = "OK";
-
     try {
-        channels.forEach(async element => {
-            if (element === 'SMS')
-                await deliverSMSMessage(message);
-            if (element === 'Email')
-                await deliverEmailMessage(message);
-            if (element === 'Push')
-                await deliverPushMessage(message);
+        deliveryData.users.forEach(userElement => {
+            let tempData = {};
+            tempData.message = message;
+            tempData.name = userElement.name;
+            tempData.email = userElement.email;
+            tempData.phoneNumber = userElement.phone;
+            tempData.subscribed = userElement.subscribed;
+            tempData.channels = userElement.channels;
+            deliveryResponse = evaluateDeliveryChannels(message, tempData.channels);
+            tempData.deliveryStatus = deliveryResponse;
+            usersArray.push(tempData);
         });
+        logDataToSave.logs = usersArray;
     } catch (error) {
         deliveryResponse = error;
+        logDataToSave.deliveryStatus = error;
     }
-    return deliveryResponse;
+    return logDataToSave;
 }
 
-const deliverSMSMessage = (message) => {
+const evaluateDeliveryChannels = (message, channels) => {
+    let deliverMessageResponse = [];
+    channels.forEach(element => {
+        if (element === 'SMS') {
+            return new Promise((resolve, reject) => {
+                let smsSendingResponse = sendSMSMessage(message);
+                if (smsSendingResponse === 'SMS Sent') {
+                    resolve('OK');
+                } else {
+                    reject(smsSendingResponse);
+                }
+                deliverMessageResponse.push(smsSendingResponse);
+            });
+        }
+
+        if (element === 'Email') {
+            return new Promise((resolve, reject) => {
+                let emailSendingResponse = sendEmailMessage(message);
+                if (emailSendingResponse === 'Email Sent') {
+                    resolve('OK');
+                } else {
+                    reject(emailSendingResponse);
+                }
+                deliverMessageResponse.push(emailSendingResponse);
+            });
+        }
+            
+        if (element === 'Push') {
+            return new Promise((resolve, reject) => {
+                let pushNotificationSendingResponse = sendPushMessage(message);
+                if (pushNotificationSendingResponse === 'Push Notification Sent') {
+                    resolve('OK');
+                } else {
+                    reject(pushNotificationSendingResponse);
+                }
+                deliverMessageResponse.push(pushNotificationSendingResponse);
+            });
+        }
+    });
+    return deliverMessageResponse;
+}
+
+const sendSMSMessage = (message) => {
     console.log('Sending SMS...');
-    return new Promise(resolve => {
+    return 'SMS Sent';
+    /*try {
         setTimeout(() => {
-          resolve(console.log('SMS Sent'));
-        }, 10000);
-    });
+            console.log('SMS Sent');
+            return 'SMS Sent'
+          }, 10000);        
+    } catch (error) {
+        return error;
+    }*/
 }
 
-const deliverEmailMessage = (message) => {
+const sendEmailMessage = (message) => {
     console.log('Sending Email...');
-    return new Promise(resolve => {
+    return 'Email Sent'
+    /*try {
         setTimeout(() => {
-          resolve(console.log('Email Sent'));
-        }, 3000);
-    });
+            console.log('Email Sent');
+            return 'Email Sent'
+          }, 3000);        
+    } catch (error) {
+        return error;
+    }*/
 }
 
-const deliverPushMessage = (message) => {
+const sendPushMessage = (message) => {
     console.log('Sending Push Notification...');
-    return new Promise(resolve => {
+    return 'Push Notification Sent'
+    /*try {
         setTimeout(() => {
-          resolve(console.log('Push Notification Sent'));
-        }, 5000);
-    });
+            console.log('Push Notification Sent');
+            return 'Push Notification Sent'
+          }, 5000);
+    } catch (error) {
+        return error;
+    }*/
 }
 
 module.exports = {
-    evaluateMessage
+    buildLogData
 }
