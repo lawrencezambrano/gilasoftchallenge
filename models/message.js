@@ -30,6 +30,6 @@ const MessageSchema = Schema({
         type: Array,
         required: true
     }
-});
+}, { timestamps: true });
 
 module.exports = model('Messages', MessageSchema);

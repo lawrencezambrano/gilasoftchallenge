@@ -15,7 +15,7 @@ const saveToDB = (objectToSave) => {
 
 const getLogs = async() => {
     try {
-        const messages = await Message.find();
+        const messages = await Message.find({}, null, {sort: '-createdAt'});
         console.log(messages);
         return messages;
     } catch (error) {

@@ -1,21 +1,230 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <link rel="icon" href="/favicon.ico"/>
-        <meta name="viewport" content="width=device-width,initial-scale=1"/>
-        <meta name="theme-color" content="#000000"/>
-        <meta name="description" content="Web site created using create-react-app"/>
-        <link rel="apple-touch-icon" href="/logo192.png"/>
-        <link rel="manifest" href="/manifest.json"/>
-        <title>React App is running</title>
-        <link href="/static/css/main.8c8b27cf.chunk.css" rel="stylesheet">
-    </head>
-    <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root"></div>
-        <script>!function(e){function r(r){for(var n,a,i=r[0],c=r[1],l=r[2],f=0,s=[];f<i.length;f++)a=i[f],Object.prototype.hasOwnProperty.call(o,a)&&o[a]&&s.push(o[a][0]),o[a]=0;for(n in c)Object.prototype.hasOwnProperty.call(c,n)&&(e[n]=c[n]);for(p&&p(r);s.length;)s.shift()();return u.push.apply(u,l||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,i=1;i<t.length;i++){var c=t[i];0!==o[c]&&(n=!1)}n&&(u.splice(r--,1),e=a(a.s=t[0]))}return e}var n={},o={1:0},u=[];function a(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,a),t.l=!0,t.exports}a.e=function(e){var r=[],t=o[e];if(0!==t)if(t)r.push(t[2]);else{var n=new Promise((function(r,n){t=o[e]=[r,n]}));r.push(t[2]=n);var u,i=document.createElement("script");i.charset="utf-8",i.timeout=120,a.nc&&i.setAttribute("nonce",a.nc),i.src=function(e){return a.p+"static/js/"+({}[e]||e)+"."+{3:"d7be69b9"}[e]+".chunk.js"}(e);var c=new Error;u=function(r){i.onerror=i.onload=null,clearTimeout(l);var t=o[e];if(0!==t){if(t){var n=r&&("load"===r.type?"missing":r.type),u=r&&r.target&&r.target.src;c.message="Loading chunk "+e+" failed.\n("+n+": "+u+")",c.name="ChunkLoadError",c.type=n,c.request=u,t[1](c)}o[e]=void 0}};var l=setTimeout((function(){u({type:"timeout",target:i})}),12e4);i.onerror=i.onload=u,document.head.appendChild(i)}return Promise.all(r)},a.m=e,a.c=n,a.d=function(e,r,t){a.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},a.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.t=function(e,r){if(1&r&&(e=a(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(a.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)a.d(t,n,function(r){return e[r]}.bind(null,n));return t},a.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return a.d(r,"a",r),r},a.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},a.p="/",a.oe=function(e){throw console.error(e),e};var i=this["webpackJsonpreact-app"]=this["webpackJsonpreact-app"]||[],c=i.push.bind(i);i.push=r,i=i.slice();for(var l=0;l<i.length;l++)r(i[l]);var p=c;t()}([])</script>
-        <script src="/static/js/2.db6f04e4.chunk.js"></script>
-        <script src="/static/js/main.29c70641.chunk.js"></script>
-    </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>GilaSoftware - Test Messaging</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+    <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+
+<body>
+  <!-- container section start -->
+  <section id="container" class="">
+    <!--header start-->
+
+    <header class="header dark-bg">
+
+      <!--logo start-->
+      <a href="index.html" class="logo">Test <span class="lite">Messaging</span></a>
+      <!--logo end-->
+    </header>
+    <!--header end-->
+
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+          <li class="">
+            <a class="" href="index.html">
+              <i class="icon_house_alt"></i>
+                <span>Home</span>
+            </a>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa fa-bars"></i> Send Message</h3>
+          </div>
+        </div>
+
+        <!-- page start-->
+        <!-- Form -->
+        <div class="col-md-12 portlets">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="pull-left"></div>
+
+              <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+              <div class="padd">
+
+                <div class="form quick-post">
+                  <form class="form-horizontal">
+                    <!-- Category -->
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Category</label>
+                      <div class="col-lg-10">
+                        <select class="form-control" id="categorySelect">
+                          <option value="">- Choose Category -</option>
+                          <option value="1">Sport</option>
+                          <option value="2">Finance</option>
+                          <option value="3">Movies</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="form-group">
+                      <label class="control-label col-lg-2" for="content">Message</label>
+                      <div class="col-lg-10">
+                        <textarea class="form-control" id="messageText"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-9">
+                        <button type="button" class="btn btn-primary" onclick="pushMessage()">Publish</button>
+                        <button type="reset" class="btn btn-default" onclick="resetForm()">Reset</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="widget-foot">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="col-sm-12">
+          <section class="panel">
+            <header class="panel-heading">
+              Message Logs
+            </header>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Subscribed To</th>
+                  <th>Channels</th>
+                  <th>Message</th>
+                  <th>Created At</th>
+                </tr>
+              </thead>
+              <tbody id="logsRows">
+              </tbody>
+            </table>
+          </section>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+    <div class="text-right">
+      
+    </div>
+  </section>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nice scroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js"></script>
+
+  <script>
+    async function pushMessage() {
+      let categoryElement = document.getElementById("categorySelect");
+      let category = categoryElement.options[categoryElement.selectedIndex].text;
+      let message = document.getElementById("messageText").value;
+      const messageData = {
+        "category": category,
+        "message": message
+      }
+
+      const response = await fetch('http://127.0.0.1:8080/api/messages', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(messageData),
+      });
+      resetForm();
+      getMessagesLog();
+    }
+
+    async function getMessagesLog() {
+      const response = await fetch('http://127.0.0.1:8080/api/messages', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      const messageLogData = await response.json();
+      let rowsCount = messageLogData.logs.length;
+      let logsRows = "";
+      let dateString = "";
+
+      for(i = 0; i < rowsCount; i++)
+      {
+        logsRows += "<tr>";
+        logsRows += "<td>" + messageLogData.logs[i].name + "</td>";
+        logsRows += "<td>" + messageLogData.logs[i].email + "</td>";
+        logsRows += "<td>" + messageLogData.logs[i].phoneNumber + "</td>";
+        logsRows += "<td>" + messageLogData.logs[i].subscribed + "</td>";
+        logsRows += "<td>" + messageLogData.logs[i].channels + "</td>";
+        logsRows += "<td>" + messageLogData.logs[i].message + "</td>";
+        dateString = new Date(messageLogData.logs[i].createdAt);
+        logsRows += "<td>" + dateString + "</td>";
+        logsRows += "</tr>";
+      }
+      document.getElementById("logsRows").innerHTML = logsRows;
+    }
+
+    function resetForm() {
+      categoryElement = document.getElementById("categorySelect").value = 0;
+      document.getElementById("messageText").value = "";
+    }
+
+    getMessagesLog();
+  </script>
+</body>
+
 </html>
